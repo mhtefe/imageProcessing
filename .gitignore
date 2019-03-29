@@ -11,3 +11,13 @@
 *.tlog
 *.lastbuildstate
 *.opendb
+*.db
+*.suo
+*.ipch
+*.enc
+
+#folders
+imageProcessing/.vs
+imageProcessing/Release
+imageProcessing/Debug
+imageProcessing/x64
