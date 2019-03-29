@@ -99,17 +99,19 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(MYGVK_EX)\opencv-3.4.1\srcs;$(MYGVK_EX)\opencv-3.4.1\srcs\opencv2;$(MYGVK_EX)\opencv-3.4.1\include\opencv2;$(MYGVK_EX)\opencv-3.4.1\include\opencv;$(MYGVK_EX)\opencv-3.4.1\include;$(MYGVK_EX)\opencv-3.4.1\modules;$(MYGVK_EX)\opencv-3.4.1\modules\calib3d\include;$(MYGVK_EX)\opencv-3.4.1\modules\core\include;$(MYGVK_EX)\opencv-3.4.1\modules\imgproc\include;$(MYGVK_EX)\opencv-3.4.1\modules\videoio\include;$(MYGVK_EX)\opencv-3.4.1\modules\imgcodecs\include;$(MYGVK_EX)\opencv-3.4.1\modules\highgui\include;$(MYGVK_EX)\opencv-3.4.1\modules\features2d\include;$(MYGVK_EX)\opencv-3.4.1\modules\ml\include;$(MYGVK_EX)\opencv-3.4.1\modules\flann\include;$(MYGVK_EX)\opencv-3.4.1\opencv_contrib-3.4.1\modules\xfeatures2d\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>$(MYGVK_EX)\opencv-3.4.1\srcs\lib\Debug\opencv_core341d.lib;$(MYGVK_EX)\opencv-3.4.1\srcs\lib\Debug\opencv_imgproc341d.lib;$(MYGVK_EX)\opencv-3.4.1\srcs\lib\Debug\opencv_highgui341d.lib;$(MYGVK_EX)\opencv-3.4.1\srcs\lib\Debug\opencv_imgcodecs341d.lib;$(MYGVK_EX)\opencv-3.4.1\srcs\lib\Debug\opencv_videoio341d.lib;$(MYGVK_EX)\opencv-3.4.1\srcs\lib\Debug\opencv_features2d341d.lib;$(MYGVK_EX)\opencv-3.4.1\srcs\lib\Debug\opencv_xfeatures2d341d.lib;$(MYGVK_EX)\opencv-3.4.1\srcs\lib\Debug\opencv_calib3d341d.lib;$(MYGVK_EX)\opencv-3.4.1\srcs\lib\Debug\opencv_ccalib341d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -133,7 +135,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -141,7 +143,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(MYGVK_EX)\opencv-3.4.0\srcs;$(MYGVK_EX)\opencv-3.4.0\srcs\opencv2;$(MYGVK_EX)\opencv-3.4.0\include\opencv2;$(MYGVK_EX)\opencv-3.4.0\include\opencv;$(MYGVK_EX)\opencv-3.4.0\include;$(MYGVK_EX)\opencv-3.4.0\modules;$(MYGVK_EX)\opencv-3.4.0\modules\core\include;$(MYGVK_EX)\opencv-3.4.0\modules\imgproc\include;$(MYGVK_EX)\opencv-3.4.0\modules\videoio\include;$(MYGVK_EX)\opencv-3.4.0\modules\imgcodecs\include;$(MYGVK_EX)\opencv-3.4.0\modules\highgui\include;$(MYGVK_EX)\opencv-3.4.0\modules\features2d\include;$(MYGVK_EX)\opencv-3.4.0\modules\ml\include;$(MYGVK_EX)\opencv-3.4.0\modules\flann\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -151,16 +155,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="pch.h" />
+    <ClCompile Include="imageProcessing.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="imageProcessing.cpp" />
-    <ClCompile Include="pch.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-    </ClCompile>
+    <ClInclude Include="helpers.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
