@@ -90,6 +90,30 @@ void alignImages(Mat &im1, Mat &im2, Mat &im1Reg, Mat &h)
 
 }
 
+Point2f sourceToDestination(Point2f pt, Mat h, bool giveMessage = false)
+{
+	Mat po(3, 1, CV_64FC1);
+	po.at<double>(0) = pt.x;
+	po.at<double>(1) = pt.y;
+	po.at<double>(2) = 1;
+
+	Mat po1 = h * po;
+
+	// homogenous to cartesian
+	po1.at<double>(0) = po1.at<double>(0) / po1.at<double>(2);
+	po1.at<double>(1) = po1.at<double>(1) / po1.at<double>(2);
+
+	if(giveMessage)
+		cout << "conf: " << 1 - abs(1 - po1.at<double>(2)) << endl;
+
+	return Point2f(po1.at<double>(0), po1.at<double>(1));
+}
+
+Point2f destinationToSource(Point2f pt, Mat h, bool giveMessage = false)
+{
+	return sourceToDestination(pt, h.inv(), giveMessage);
+}
+
 template <class T>
 T mht_euclidian_distance(T x0, T y0, T x1, T y1) 
 {
