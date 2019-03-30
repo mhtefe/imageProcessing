@@ -69,6 +69,8 @@ T mht_euclidian_distance(T x0, T y0, T x1, T y1)
 // reshape it 3x3
 // well the interesting thing is, they didn't applied any kind of normalization and hence their solution is pretty decent
 
+// check this link:
+// http://people.rennes.inria.fr/Eric.Marchand/pose-estimation/tutorial-pose-dlt-planar-opencv.html
 cv::Mat homography_dlt(const std::vector< cv::Point2d > &x1, const std::vector< cv::Point2d > &x2)
 {
 	int npoints = (int)x1.size();
@@ -80,19 +82,19 @@ cv::Mat homography_dlt(const std::vector< cv::Point2d > &x1, const std::vector< 
 		A.resize(2 * npoints + 1, cv::Scalar(0));
 	// Since the third line of matrix A is a linear combination of the first and second lines
 	// (A is rank 2) we don't need to implement this third line
-	for (int i = 0; i < npoints; i++) {      // Update matrix A using eq. 33
-		A.at<double>(2 * i, 3) = -x1[i].x;               // -xi_1
-		A.at<double>(2 * i, 4) = -x1[i].y;               // -yi_1
-		A.at<double>(2 * i, 5) = -1;                     // -1
-		A.at<double>(2 * i, 6) = x2[i].y * x1[i].x;     //  yi_2 * xi_1
-		A.at<double>(2 * i, 7) = x2[i].y * x1[i].y;     //  yi_2 * yi_1
-		A.at<double>(2 * i, 8) = x2[i].y;               //  yi_2
+	for (int i = 0; i < npoints; i++) {					  // Update matrix A using eq. 33
+		A.at<double>(2 * i, 3) = -x1[i].x;                // -xi_1
+		A.at<double>(2 * i, 4) = -x1[i].y;                // -yi_1
+		A.at<double>(2 * i, 5) = -1;                      // -1
+		A.at<double>(2 * i, 6) = x2[i].y * x1[i].x;       //  yi_2 * xi_1
+		A.at<double>(2 * i, 7) = x2[i].y * x1[i].y;       //  yi_2 * yi_1
+		A.at<double>(2 * i, 8) = x2[i].y;                 //  yi_2
 		A.at<double>(2 * i + 1, 0) = x1[i].x;             //  xi_1
 		A.at<double>(2 * i + 1, 1) = x1[i].y;             //  yi_1
 		A.at<double>(2 * i + 1, 2) = 1;                   //  1
-		A.at<double>(2 * i + 1, 6) = -x2[i].x * x1[i].x;   // -xi_2 * xi_1
-		A.at<double>(2 * i + 1, 7) = -x2[i].x * x1[i].y;   // -xi_2 * yi_1
-		A.at<double>(2 * i + 1, 8) = -x2[i].x;             // -xi_2
+		A.at<double>(2 * i + 1, 6) = -x2[i].x * x1[i].x;  // -xi_2 * xi_1
+		A.at<double>(2 * i + 1, 7) = -x2[i].x * x1[i].y;  // -xi_2 * yi_1
+		A.at<double>(2 * i + 1, 8) = -x2[i].x;            // -xi_2
 	}
 	// Add an extra line with zero.
 	if (npoints == 4) {
