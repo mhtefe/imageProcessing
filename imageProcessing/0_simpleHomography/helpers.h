@@ -26,17 +26,16 @@ using namespace std;
 using namespace cv;
 using namespace cv::xfeatures2d;
 
-const int MAX_FEATURES = 500;
+const int MAX_FEATURES = 50;
 const float GOOD_MATCH_PERCENT = 0.15f;
 
-// align images -> satya malic, 
+// align images -> Satya Mallick, 
 //https://www.learnopencv.com/image-alignment-feature-based-using-opencv-c-python/
 
 //these are good notes:
 //Two images of a scene are related by a homography under two conditions.
 //The two images are that of a plane(e.g.sheet of paper, credit card etc.).
 //The two images were acquired by rotating the camera about its optical axis.We take such images while generating panoramas.
-
 void alignImages(Mat &im1, Mat &im2, Mat &im1Reg, Mat &h)
 
 {
@@ -90,7 +89,7 @@ void alignImages(Mat &im1, Mat &im2, Mat &im1Reg, Mat &h)
 
 }
 
-Point2f sourceToDestination(Point2f pt, Mat h, bool giveMessage = false)
+Point2f mht_sourceToDestination(Point2f pt, Mat h, bool giveMessage = false)
 {
 	Mat po(3, 1, CV_64FC1);
 	po.at<double>(0) = pt.x;
@@ -109,9 +108,9 @@ Point2f sourceToDestination(Point2f pt, Mat h, bool giveMessage = false)
 	return Point2f(po1.at<double>(0), po1.at<double>(1));
 }
 
-Point2f destinationToSource(Point2f pt, Mat h, bool giveMessage = false)
+Point2f mht_destinationToSource(Point2f pt, Mat h, bool giveMessage = false)
 {
-	return sourceToDestination(pt, h.inv(), giveMessage);
+	return mht_sourceToDestination(pt, h.inv(), giveMessage);
 }
 
 template <class T>
