@@ -1,6 +1,6 @@
 "# imageProcessing" 
 
-I'll try to gather code snippets by citing the developer in order to develop a better understanding on some issues. 
+I'll try to gather code snippets by citing the developer for better understanding on some issues and planning to fill the gaps on some issues. 
 
 So far, the topics are:
 
