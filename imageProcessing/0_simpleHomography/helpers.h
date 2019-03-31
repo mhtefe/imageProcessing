@@ -10,6 +10,7 @@
 #include <opencv2/features2d/features2d.hpp>
 #include <opencv2/calib3d/calib3d.hpp>
 #include <opencv2/opencv_modules.hpp>
+#include <opencv2/video/tracking.hpp>
 
 #ifdef HAVE_OPENCV_NONFREE
 #if CV_MAJOR_VERSION == 2 && CV_MINOR_VERSION >=4

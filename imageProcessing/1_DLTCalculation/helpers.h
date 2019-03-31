@@ -71,6 +71,7 @@ T mht_euclidian_distance(T x0, T y0, T x1, T y1)
 
 // check this link:
 // http://people.rennes.inria.fr/Eric.Marchand/pose-estimation/tutorial-pose-dlt-planar-opencv.html
+
 cv::Mat homography_dlt(const std::vector< cv::Point2d > &x1, const std::vector< cv::Point2d > &x2)
 {
 	int npoints = (int)x1.size();
@@ -120,6 +121,43 @@ cv::Mat homography_dlt(const std::vector< cv::Point2d > &x1, const std::vector< 
 		for (int j = 0; j < 3; j++)
 			_2H1.at<double>(i, j) = h.at<double>(0, 3 * i + j);
 	return _2H1;
+}
+
+
+cv::Mat mht_affine_leastSquares(const std::vector< cv::Point2d > &x1, const std::vector< cv::Point2d > &x2)
+{
+	// let's change the linear system. Affine transformation matrix supposed to have shape of 2x3
+	// and it's linear system consists of combinations of the given point pairs
+	int npoints = (int)x1.size();
+
+	cv::Mat A(2 * npoints, 6, CV_64F, cv::Scalar(0));
+	cv::Mat C(2 * npoints, 1, CV_64F, cv::Scalar(0));
+	// We need here to compute the SVD on a (n*2)*6 matrix (where n is
+	// the number of points). if n == 3, the matrix has more columns
+	// than rows. The solution is to add an extra line with zeros
+
+	for (int i = 0; i < npoints; i++) 
+	{	
+		A.at<double>(2 * i, 0) = x1[i].x;   
+		A.at<double>(2 * i, 1) = x1[i].y;   
+		A.at<double>(2 * i, 2) = 1;         
+		A.at<double>(2 * i, 3) = 0;       
+		A.at<double>(2 * i, 4) = 0;       
+		A.at<double>(2 * i, 5) = 0;         
+		A.at<double>(2 * i + 1, 0) = 0;     
+		A.at<double>(2 * i + 1, 1) = 0;     
+		A.at<double>(2 * i + 1, 2) = 0;      
+		A.at<double>(2 * i + 1, 3) = x1[i].x;
+		A.at<double>(2 * i + 1, 4) = x1[i].y;
+		A.at<double>(2 * i + 1, 5) = 1;     
+
+		C.at<double>(2 * i, 0)     = x2[i].x;
+		C.at<double>(2 * i + 1, 0) = x2[i].y;
+	}
+
+	Mat h = (A.t()*A).inv() * A.t() * C;
+	h = h.reshape(1, 2);
+	return h;
 }
 
 #endif
