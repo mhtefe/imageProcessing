@@ -26,9 +26,6 @@ using namespace std;
 using namespace cv;
 using namespace cv::xfeatures2d;
 
-// define a type to ease accessing coordinates
-typedef std::vector<std::pair<Point2f, Point2f> > PointPairs;
-
 Point2f mht_sourceToDestination(Point2f pt, Mat h, bool giveMessage = false)
 {
 	Mat po(3, 1, CV_64FC1);

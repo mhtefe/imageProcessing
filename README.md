@@ -1,11 +1,12 @@
 "# imageProcessing" 
 
-I'll try to gather code snippets by citing the developer for better understanding on some issues and planning to fill the gaps on some issues. 
+I'll try to gather code snippets by citing the developer for better understanding on issues which I find interesting and 
+planning to fill the gaps at some points. 
 
 So far, the topics are:
 
 0_simpleHomography:
-How to use homography ("h") matrix ? How to calculate it in OpenCv for given points and results of projection of individual pairs.
+How to use homography ("h") matrix ? How to calculate it using OpenCv for given points and results of projection of individual pairs.
 
 1_DLTCalculation: 
-How to calculate "h" for given 4 coplanar point pairs ?
+How to calculate "h" for given 4 coplanar point pairs and affine transformation matrix using least square ?
