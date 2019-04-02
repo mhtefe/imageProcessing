@@ -58,15 +58,17 @@ T mht_euclidian_distance(T x0, T y0, T x1, T y1)
 	return ( sqrt(result));
 }
 
-//Eric.Marchand and these guys have a solution in here
-// flow is simple; 
+// Eric.Marchand and these guys have a solution in here
+// many people who want to calculate homography matrix have a little bit confusion after constructing the linear system matrix
+// etc. why do I need SVD, which matrix, which row should I gonna get to construct H...
+// flow is simple however; 
 // build the linear solution matrix, 
 // give them to SVD, 
 // take the the smallest row of (vt)
 // reshape it 3x3
 // well the interesting thing is, they didn't applied any kind of normalization and hence their solution is pretty decent
 
-// check this link:
+// check out this link:
 // http://people.rennes.inria.fr/Eric.Marchand/pose-estimation/tutorial-pose-dlt-planar-opencv.html
 
 cv::Mat homography_dlt(const std::vector< cv::Point2d > &x1, const std::vector< cv::Point2d > &x2)
@@ -129,9 +131,9 @@ cv::Mat mht_affine_leastSquares(const std::vector< cv::Point2d > &x1, const std:
 
 	cv::Mat A(2 * npoints, 6, CV_64F, cv::Scalar(0));
 	cv::Mat C(2 * npoints, 1, CV_64F, cv::Scalar(0));
-	// We need here to compute the SVD on a (n*2)*6 matrix (where n is
-	// the number of points). if n == 3, the matrix has more columns
-	// than rows. The solution is to add an extra line with zeros
+	
+	// there's no need for SVD since system is a mere linear inverse problem
+	// I remember this solution was called least squares
 
 	for (int i = 0; i < npoints; i++) 
 	{	
@@ -151,6 +153,9 @@ cv::Mat mht_affine_leastSquares(const std::vector< cv::Point2d > &x1, const std:
 		C.at<double>(2 * i, 0)     = x2[i].x;
 		C.at<double>(2 * i + 1, 0) = x2[i].y;
 	}
+
+	// now we have to think about it: in what kind of conditions the A matrix becomes singular,
+	// and if it's singular then how can we calculate h ???
 
 	Mat h = (A.t()*A).inv() * A.t() * C;
 	h = h.reshape(1, 2);
