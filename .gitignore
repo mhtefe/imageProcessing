@@ -15,9 +15,12 @@
 *.suo
 *.ipch
 *.enc
+*.mov
 
 #folders
 imageProcessing/.vs
 imageProcessing/Release
 imageProcessing/Debug
 imageProcessing/x64
+imageProcessing/5_RollingShutter
+imageProcessing/5_RollingShutter/data

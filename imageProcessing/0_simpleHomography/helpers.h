@@ -42,8 +42,8 @@ void alignImages(Mat &im1, Mat &im2, Mat &im1Reg, Mat &h)
 {
 	// Convert images to grayscale
 	Mat im1Gray, im2Gray;
-	cvtColor(im1, im1Gray, CV_BGR2GRAY);
-	cvtColor(im2, im2Gray, CV_BGR2GRAY);
+	cvtColor(im1, im1Gray, COLOR_BGR2RGB);
+	cvtColor(im2, im2Gray, COLOR_BGR2RGB);
 
 	// Variables to store keypoints and descriptors
 	std::vector<KeyPoint> keypoints1, keypoints2;
